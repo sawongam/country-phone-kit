@@ -3,6 +3,10 @@
 [![pub package](https://img.shields.io/pub/v/country_phone_kit.svg)](https://pub.dev/packages/country_phone_kit)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+<p align="center">
+  <img src="docs/country.gif" width="320" alt="country_phone_kit demo" />
+</p>
+
 Every app that asks a user where they are from needs the same handful of
 things, and they are scattered across packages that disagree with each other:
 

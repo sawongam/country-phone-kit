@@ -33,12 +33,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-# Uncomment once you have run the example and captured the two shots described
-# in doc/screenshots.md. pub.dev shows these on the package page.
-# screenshots:
-#   - description: The phone field with live validation and an E.164 readout.
-#     path: doc/screenshot_field.png
-#   - description: The searchable country picker.
-#     path: doc/screenshot_picker.png
-#   - description: The currency picker, searchable by code, name or symbol.
-#     path: doc/screenshot_currency.png
+# Demo video shown on the package page.
+screenshots:
+  - description: Phone field, country picker and currency picker in action.
+    path: docs/country.gif
