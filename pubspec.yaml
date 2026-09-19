@@ -1,7 +1,7 @@
 name: country_phone_kit
 description: >-
   Country and phone utilities for Flutter, with ISO codes, flags, validation, formatting, and ready-to-use UI
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/sawongam/country-phone-kit
 repository: https://github.com/sawongam/country-phone-kit
 issue_tracker: https://github.com/sawongam/country-phone-kit/issues
