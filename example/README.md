@@ -4,10 +4,10 @@ A gallery for the package:
 
 | Card | Shows |
 | --- | --- |
-| **Just the data** | `Countries.all`, `byIsoCode`, `byDialCode`, `primaryForDialCode`, `Currencies`, and the one-line `PhoneNumber.isValidNumber` / `formatE164` — no widget from this package on screen |
 | **Type a number** | `PhoneNumberField` with live validation, as-you-type grouping and an E.164 readout |
 | **Pick a country** | `showCountryPicker`, plus the dial code, digit lengths and currency of what you picked |
 | **Pick a currency** | `showCurrencyPicker`, plus `Currencies.countriesUsing` — the flags of every country that spends what you picked |
+| **Pick a currency inline** | `CurrencyDropdownField` — the same currencies as an inline searchable dropdown, no sheet |
 | **Paste any format** | `PhoneNumber.parse` against `+977 …`, `00 44 …` and `(202) 555-0100` |
 
 Styling comes entirely from `ThemeData` — the toggle in the app bar flips

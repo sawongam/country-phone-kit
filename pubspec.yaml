@@ -1,8 +1,6 @@
 name: country_phone_kit
 description: >-
-  Country list, flags, ISO and dial codes, currencies, per-country phone
-  validation and as-you-type formatting — as plain Dart data, plus optional
-  themed phone field, country picker and currency picker.
+  Country and phone utilities for Flutter, with ISO codes, flags, validation, formatting, and ready-to-use UI
 version: 1.0.0
 homepage: https://github.com/sawongam/country-phone-kit
 repository: https://github.com/sawongam/country-phone-kit

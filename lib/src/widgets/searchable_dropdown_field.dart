@@ -108,7 +108,8 @@ class SearchableDropdownField<T> extends StatefulWidget {
       _SearchableDropdownFieldState<T>();
 }
 
-class _SearchableDropdownFieldState<T> extends State<SearchableDropdownField<T>> {
+class _SearchableDropdownFieldState<T>
+    extends State<SearchableDropdownField<T>> {
   final LayerLink _link = LayerLink();
   final GlobalKey _fieldKey = GlobalKey();
   final TextEditingController _search = TextEditingController();

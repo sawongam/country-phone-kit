@@ -405,9 +405,14 @@ void main() {
       await tester.enterText(find.byType(TextField).last, 'usd');
       await tester.pumpAndSettle();
 
-      expect(find.widgetWithText(ListTile, 'United States dollar (USD)'), findsOneWidget);
+      expect(
+        find.widgetWithText(ListTile, 'United States dollar (USD)'),
+        findsOneWidget,
+      );
 
-      await tester.tap(find.widgetWithText(ListTile, 'United States dollar (USD)'));
+      await tester.tap(
+        find.widgetWithText(ListTile, 'United States dollar (USD)'),
+      );
       await tester.pumpAndSettle();
 
       expect(picked, Currencies.byCode('USD'));
@@ -432,7 +437,10 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.widgetWithText(ListTile, 'Euro (EUR)'), findsOneWidget);
-      expect(find.widgetWithText(ListTile, 'United States dollar (USD)'), findsNothing);
+      expect(
+        find.widgetWithText(ListTile, 'United States dollar (USD)'),
+        findsNothing,
+      );
     });
 
     testWidgets('tapping outside the menu closes it without a pick', (

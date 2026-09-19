@@ -49,6 +49,10 @@ First release.
   modal sheet or embedded inline.
 - `showCurrencyPicker` and `CurrencyPickerSheet` — the same picker over
   currencies, searchable by code, name or symbol.
+- `CurrencyDropdownField` — currency entry as an inline searchable dropdown
+  anchored under the field, for forms that would rather not open a sheet.
+- `SearchableDropdownField<T>` — the same inline dropdown, generic over any
+  typed list.
 - `CountryFlag`, `CountryListTile`, `CurrencyListTile`, `CountryPickerLabels`,
   `CurrencyPickerLabels`.
 - Everything is styled through the ambient `ThemeData`; the package hard-codes
