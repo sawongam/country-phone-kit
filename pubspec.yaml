@@ -1,7 +1,7 @@
 name: country_phone_kit
 description: >-
   Country and phone utilities for Flutter, with ISO codes, flags, validation, formatting, and ready-to-use UI
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/sawongam/country-phone-kit
 repository: https://github.com/sawongam/country-phone-kit
 issue_tracker: https://github.com/sawongam/country-phone-kit/issues
@@ -24,7 +24,7 @@ dependencies:
 
   # Google's libphonenumber metadata, ported to Dart. Used for real validation
   # (not a length check) and for digit-grouping as the user types.
-  dlibphonenumber: ^1.1.5
+  dlibphonenumber: ^1.1.10
 
 dev_dependencies:
   flutter_lints: ^6.0.0
