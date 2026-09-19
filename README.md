@@ -1,7 +1,7 @@
 # country_phone_kit
 
 [![pub package](https://img.shields.io/pub/v/country_phone_kit.svg)](https://pub.dev/packages/country_phone_kit)
-[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![Publisher](https://img.shields.io/badge/Publisher-sawongam-blue.svg)
 
 <p align="center">
   <img src="docs/country.gif" width="320" alt="country_phone_kit demo" />
@@ -380,7 +380,7 @@ The generator is strict on purpose: an unmatched row fails the run rather than
 emitting a country that is quietly missing half its data.
 
 Issues and pull requests:
-<https://github.com/sawongam/country_phone_kit/issues>
+<https://github.com/sawongam/country-phone-kit/issues>
 
 ## License
 

@@ -4,10 +4,10 @@ description: >-
   validation and as-you-type formatting — as plain Dart data, plus optional
   themed phone field, country picker and currency picker.
 version: 1.0.0
-homepage: https://github.com/sawongam/country_phone_kit
-repository: https://github.com/sawongam/country_phone_kit
-issue_tracker: https://github.com/sawongam/country_phone_kit/issues
-documentation: https://github.com/sawongam/country_phone_kit#readme
+homepage: https://github.com/sawongam/country-phone-kit
+repository: https://github.com/sawongam/country-phone-kit
+issue_tracker: https://github.com/sawongam/country-phone-kit/issues
+documentation: https://github.com/sawongam/country-phone-kit#readme
 
 topics:
   - country

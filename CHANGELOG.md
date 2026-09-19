@@ -1,8 +1,3 @@
-# Changelog
-
-All notable changes to this package are documented here. This project follows
-[semantic versioning](https://semver.org/spec/v2.0.0.html).
-
 ## 1.0.0
 
 First release.
