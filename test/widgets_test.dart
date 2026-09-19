@@ -375,4 +375,98 @@ void main() {
       );
     });
   });
+
+  group('CurrencyDropdownField', () {
+    testWidgets('opens under the field and applies the tapped currency', (
+      tester,
+    ) async {
+      CountryCurrency? picked;
+
+      await tester.pumpWidget(
+        _host(
+          CurrencyDropdownField(
+            label: 'Currency',
+            value: Currencies.byCode('NPR'),
+            onChanged: (currency) => picked = currency,
+          ),
+        ),
+      );
+
+      expect(find.text('Nepalese rupee (NPR)'), findsOneWidget);
+
+      // The menu is not built until the field is tapped open.
+      expect(find.byType(ListTile), findsNothing);
+
+      await tester.tap(find.byType(CurrencyDropdownField));
+      await tester.pumpAndSettle();
+
+      // The list is virtualized, so filter to the row before tapping it —
+      // "US dollar" sorts well past what an unfiltered list renders.
+      await tester.enterText(find.byType(TextField).last, 'usd');
+      await tester.pumpAndSettle();
+
+      expect(
+        find.widgetWithText(ListTile, 'United States dollar (USD)'),
+        findsOneWidget,
+      );
+
+      await tester.tap(
+        find.widgetWithText(ListTile, 'United States dollar (USD)'),
+      );
+      await tester.pumpAndSettle();
+
+      expect(picked, Currencies.byCode('USD'));
+      // Picking a row closes the menu.
+      expect(find.byType(ListTile), findsNothing);
+    });
+
+    testWidgets('filters the menu as the query is typed', (tester) async {
+      await tester.pumpWidget(
+        _host(
+          CurrencyDropdownField(
+            value: Currencies.byCode('NPR'),
+            onChanged: (_) {},
+          ),
+        ),
+      );
+
+      await tester.tap(find.byType(CurrencyDropdownField));
+      await tester.pumpAndSettle();
+
+      await tester.enterText(find.byType(TextField).last, 'euro');
+      await tester.pumpAndSettle();
+
+      expect(find.widgetWithText(ListTile, 'Euro (EUR)'), findsOneWidget);
+      expect(
+        find.widgetWithText(ListTile, 'United States dollar (USD)'),
+        findsNothing,
+      );
+    });
+
+    testWidgets('tapping outside the menu closes it without a pick', (
+      tester,
+    ) async {
+      CountryCurrency? picked;
+
+      await tester.pumpWidget(
+        _host(
+          CurrencyDropdownField(
+            value: Currencies.byCode('NPR'),
+            onChanged: (currency) => picked = currency,
+          ),
+        ),
+      );
+
+      await tester.tap(find.byType(CurrencyDropdownField));
+      await tester.pumpAndSettle();
+      expect(find.byType(ListTile), findsWidgets);
+
+      // Tap the barrier well away from the field and its menu.
+      await tester.tapAt(const Offset(10, 10));
+      await tester.pumpAndSettle();
+
+      expect(find.byType(ListTile), findsNothing);
+      expect(picked, isNull);
+    });
+  });
 }

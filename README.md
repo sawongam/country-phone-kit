@@ -1,7 +1,11 @@
 # country_phone_kit
 
 [![pub package](https://img.shields.io/pub/v/country_phone_kit.svg)](https://pub.dev/packages/country_phone_kit)
-[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![Publisher](https://img.shields.io/badge/Publisher-sawongam-blue.svg)
+
+<p align="center">
+  <img src="docs/country.gif" width="320" alt="country_phone_kit demo" />
+</p>
 
 Every app that asks a user where they are from needs the same handful of
 things, and they are scattered across packages that disagree with each other:
@@ -184,13 +188,13 @@ PhoneNumberInputFormatter.formatDigits('2025550100', 'US');  // '(202) 555-0100'
 
 The same table read the other way. Every country carries the currency it
 transacts in, and `Currencies` is that data indexed by ISO-4217 code —
-deduplicated, so the euro appears once rather than twenty-eight times.
+deduplicated, so the euro appears once rather than thirty-five times.
 
 ```dart
 Currencies.all;                       // 153 currencies, sorted by code
 Currencies.byCode('npr');             // CountryCurrency? — case-insensitive
 Currencies.forCountry('NP');          // what Nepal spends
-Currencies.countriesUsing('EUR');     // the 28 countries back again
+Currencies.countriesUsing('EUR');     // the 35 countries and territories back again
 Currencies.search('rupee');           // ranked for a picker: INR, LKR, MUR, NPR, …
 ```
 
@@ -277,9 +281,27 @@ find something, and an exact code hit ranks first. Embed `CurrencyPickerSheet`
 for an inline panel, or borrow `CurrencyListTile` for a list of your own — the
 symbol sits in a fixed-width slot so names line up down the list.
 
+### The inline currency dropdown
+
+When a sheet is too heavy for a form, `CurrencyDropdownField` opens the same
+searchable list as a menu anchored under the field:
+
+```dart
+CurrencyDropdownField(
+  value: _currency,
+  label: 'Currency',
+  onChanged: (currency) => setState(() => _currency = currency),
+)
+```
+
+It is controlled like `PhoneNumberField` and takes `labels`, `errorText`,
+`required`, `enabled` and a `decoration` override. The mechanism underneath is
+exported as `SearchableDropdownField<T>`, generic over any list, for an inline
+dropdown this package does not ship.
+
 ### Styling
 
-All three widgets read `Theme.of(context)` throughout — `colorScheme`, `textTheme`,
+All the widgets read `Theme.of(context)` throughout — `colorScheme`, `textTheme`,
 `InputDecorationTheme`. There are no hard-coded colours, radii or spacing, so
 they pick up your app's look with no configuration. For full control over the
 field:
@@ -322,9 +344,9 @@ flutter pub get
 flutter run
 ```
 
-A gallery of the lot: the raw data with no widgets involved, the field with
-live validation and an E.164 readout, the country picker, the currency picker
-(with the countries that use what you picked), and `PhoneNumber.parse` — plus a
+A gallery of the lot: the field with live validation and an E.164 readout,
+the country picker, the currency picker (with the countries that use what you
+picked), the inline currency dropdown, and `PhoneNumber.parse` — plus a
 theme toggle so you can watch the widgets pick up light and dark `ThemeData`.
 
 ## What this package deliberately does not do
@@ -376,7 +398,7 @@ The generator is strict on purpose: an unmatched row fails the run rather than
 emitting a country that is quietly missing half its data.
 
 Issues and pull requests:
-<https://github.com/sawongam/country_phone_kit/issues>
+<https://github.com/sawongam/country-phone-kit/issues>
 
 ## License
 

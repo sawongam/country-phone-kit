@@ -42,7 +42,10 @@ ThemeData _theme(Brightness brightness) {
   OutlineInputBorder outline({Color? color, double width = 1}) {
     return OutlineInputBorder(
       borderRadius: radius,
-      borderSide: BorderSide(color: color ?? scheme.outlineVariant, width: width),
+      borderSide: BorderSide(
+        color: color ?? scheme.outlineVariant,
+        width: width,
+      ),
     );
   }
 
@@ -118,186 +121,19 @@ class GalleryPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      _DataDemo(),
-                      SizedBox(height: 20),
                       _PhoneFieldDemo(),
                       SizedBox(height: 20),
                       _CountryPickerDemo(),
                       SizedBox(height: 20),
                       _CurrencyPickerDemo(),
                       SizedBox(height: 20),
+                      _CurrencyDropdownDemo(),
+                      SizedBox(height: 20),
                       _ParseDemo(),
                     ],
                   ),
                 ),
               ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// The package with no widgets of its own involved: the country table read
-/// straight off [Countries], and a one-line validity check.
-class _DataDemo extends StatefulWidget {
-  const _DataDemo();
-
-  @override
-  State<_DataDemo> createState() => _DataDemoState();
-}
-
-class _DataDemoState extends State<_DataDemo> {
-  final _iso = TextEditingController(text: 'NP');
-  final _number = TextEditingController(text: '9812345678');
-  final _isoFocus = FocusNode();
-  final _numberFocus = FocusNode();
-
-  @override
-  void dispose() {
-    _iso.dispose();
-    _number.dispose();
-    _isoFocus.dispose();
-    _numberFocus.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    final text = Theme.of(context).textTheme;
-
-    final iso = _iso.text.trim();
-    final country = Countries.byIsoCode(iso);
-    final input = _number.text;
-    final valid = PhoneNumber.isValidNumber(input, isoCode: iso);
-    final e164 = PhoneNumber.formatE164(input, isoCode: iso);
-
-    return _DemoCard(
-      kicker: 'Countries · PhoneNumber',
-      title: 'Just the data',
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            'No widget from this package is on screen in this card. '
-            'Everything below is read straight off the const table.',
-            style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
-          ),
-          const SizedBox(height: 14),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              _MetaChip(
-                label: 'Countries.all',
-                value: '${Countries.all.length}',
-              ),
-              _MetaChip(
-                label: '+1',
-                value: '${Countries.byDialCode('1').length} countries',
-              ),
-              _MetaChip(
-                label: 'primary +1',
-                value: Countries.primaryForDialCode('1')!.isoCode,
-              ),
-            ],
-          ),
-          const SizedBox(height: 14),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 92,
-                child: TextField(
-                  controller: _iso,
-                  focusNode: _isoFocus,
-                  textCapitalization: TextCapitalization.characters,
-                  textInputAction: TextInputAction.next,
-                  maxLength: 2,
-                  decoration: const InputDecoration(
-                    labelText: 'ISO',
-                    counterText: '',
-                  ),
-                  onChanged: (_) => setState(() {}),
-                  onSubmitted: (_) => _numberFocus.requestFocus(),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: TextField(
-                  controller: _number,
-                  focusNode: _numberFocus,
-                  keyboardType: TextInputType.phone,
-                  textInputAction: TextInputAction.done,
-                  decoration: const InputDecoration(labelText: 'Number'),
-                  onChanged: (_) => setState(() {}),
-                  onSubmitted: (_) => _numberFocus.unfocus(),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: scheme.surface,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: scheme.outlineVariant),
-            ),
-            child: DefaultTextStyle.merge(
-              style: const TextStyle(
-                fontFeatures: [FontFeature.tabularFigures()],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _line(
-                    "Countries.byIsoCode('$iso')",
-                    country == null
-                        ? 'null'
-                        : '${country.flag} ${country.name} '
-                              '${country.dialCodePrefix}',
-                  ),
-                  _line(
-                    'isValidNumber',
-                    '$valid',
-                    color: valid ? scheme.primary : scheme.error,
-                  ),
-                  _line('formatE164', e164 ?? 'null'),
-                  if (country?.currency case final currency?)
-                    _line(
-                      'currency',
-                      '${currency.code}  ${currency.symbol}  ${currency.name}',
-                    ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _line(String key, String value, {Color? color}) {
-    final scheme = Theme.of(context).colorScheme;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 168,
-            child: Text(
-              key,
-              style: TextStyle(color: scheme.onSurfaceVariant, fontSize: 12),
-            ),
-          ),
-          Expanded(
-            child: SelectableText(
-              value,
-              style: TextStyle(color: color, fontSize: 13),
             ),
           ),
         ],
@@ -486,17 +322,6 @@ class _PhoneFieldDemoState extends State<_PhoneFieldDemo> {
                 selected: _enabled,
                 onSelected: (value) => setState(() => _enabled = value),
               ),
-              ActionChip(
-                avatar: const Icon(Icons.south_east, size: 16),
-                label: const Text('Fill Nepal sample'),
-                onPressed: () => setState(() {
-                  _submitted = false;
-                  _phone = PhoneNumber.parse(
-                    '+9779812345678',
-                    fallbackCountry: Countries.byIsoCode('NP')!,
-                  );
-                }),
-              ),
             ],
           ),
           const SizedBox(height: 16),
@@ -606,8 +431,6 @@ class _CountryPickerDemoState extends State<_CountryPickerDemo> {
 
   @override
   Widget build(BuildContext context) {
-    final currency = _country.currency;
-
     return _DemoCard(
       kicker: 'showCountryPicker',
       title: 'Pick a country',
@@ -620,52 +443,7 @@ class _CountryPickerDemoState extends State<_CountryPickerDemo> {
             label: _country.name,
             caption: '${_country.isoCode}  ${_country.dialCodePrefix}',
           ),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: [
-              _MetaChip(label: 'Dial', value: _country.dialCodePrefix),
-              _MetaChip(
-                label: 'Digits',
-                value: _country.minLength == _country.maxLength
-                    ? '${_country.minLength}'
-                    : '${_country.minLength}–${_country.maxLength}',
-              ),
-              if (currency != null)
-                _MetaChip(
-                  label: 'Currency',
-                  value: '${currency.symbol} ${currency.code}',
-                ),
-            ],
-          ),
         ],
-      ),
-    );
-  }
-}
-
-class _MetaChip extends StatelessWidget {
-  const _MetaChip({required this.label, required this.value});
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Chip(
-      visualDensity: VisualDensity.compact,
-      label: Text.rich(
-        TextSpan(
-          children: [
-            TextSpan(
-              text: '$label  ',
-              style: TextStyle(color: scheme.onSurfaceVariant),
-            ),
-            TextSpan(text: value),
-          ],
-        ),
       ),
     );
   }
@@ -694,7 +472,6 @@ class _CurrencyPickerDemoState extends State<_CurrencyPickerDemo> {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final text = Theme.of(context).textTheme;
-    final users = Currencies.countriesUsing(_currency.code);
 
     return _DemoCard(
       kicker: 'showCurrencyPicker',
@@ -711,44 +488,41 @@ class _CurrencyPickerDemoState extends State<_CurrencyPickerDemo> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
-                style: text.bodyLarge?.copyWith(
-                  color: scheme.onSurfaceVariant,
-                ),
+                style: text.bodyLarge?.copyWith(color: scheme.onSurfaceVariant),
               ),
             ),
             label: _currency.name,
             caption: _currency.code,
           ),
-          const SizedBox(height: 12),
-          Text(
-            users.length == 1
-                ? 'Currencies.countriesUsing — one country'
-                : 'Currencies.countriesUsing — ${users.length} countries',
-            style: text.bodySmall?.copyWith(color: scheme.onSurfaceVariant),
-          ),
-          const SizedBox(height: 8),
-          // The other direction: a currency code back to the countries that
-          // spend it. Twenty-eight of them, for the euro.
-          Wrap(
-            spacing: 6,
-            runSpacing: 6,
-            children: [
-              for (final country in users.take(12))
-                Tooltip(
-                  message: country.name,
-                  child: Text(
-                    country.flag,
-                    style: const TextStyle(fontSize: 20, height: 1),
-                  ),
-                ),
-              if (users.length > 12)
-                Text(
-                  '+${users.length - 12}',
-                  style: text.bodySmall?.copyWith(
-                    color: scheme.onSurfaceVariant,
-                  ),
-                ),
-            ],
+        ],
+      ),
+    );
+  }
+}
+
+class _CurrencyDropdownDemo extends StatefulWidget {
+  const _CurrencyDropdownDemo();
+
+  @override
+  State<_CurrencyDropdownDemo> createState() => _CurrencyDropdownDemoState();
+}
+
+class _CurrencyDropdownDemoState extends State<_CurrencyDropdownDemo> {
+  CountryCurrency? _currency = Currencies.byCode('NPR');
+
+  @override
+  Widget build(BuildContext context) {
+    return _DemoCard(
+      kicker: 'CurrencyDropdownField',
+      title: 'Pick a currency inline',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          CurrencyDropdownField(
+            label: 'Currency',
+            required: true,
+            value: _currency,
+            onChanged: (currency) => setState(() => _currency = currency),
           ),
         ],
       ),
@@ -804,24 +578,6 @@ class _ParseDemoState extends State<_ParseDemo> {
               hintText: '+977 098-1234-5678',
             ),
             onChanged: _parse,
-          ),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            children: [
-              for (final sample in const [
-                '+977 098-1234-5678',
-                '00 44 20 7946 0958',
-                '(202) 555-0100',
-              ])
-                ActionChip(
-                  label: Text(sample, style: const TextStyle(fontSize: 12)),
-                  onPressed: () {
-                    _controller.text = sample;
-                    _parse(sample);
-                  },
-                ),
-            ],
           ),
           const SizedBox(height: 12),
           _ValueBoard(phone: _parsed),

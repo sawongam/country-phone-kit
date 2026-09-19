@@ -37,6 +37,11 @@
 ///   as they are typed.
 /// - [showCountryPicker] — the searchable country sheet, on its own.
 /// - [showCurrencyPicker] — the same, for currencies.
+/// - [CurrencyDropdownField] — currency entry as an inline searchable
+///   dropdown, for a form that would rather not open a sheet.
+/// - [SearchableDropdownField] — the same inline-dropdown mechanism, generic
+///   over any typed list, for building a dropdown [CurrencyDropdownField]
+///   does not cover.
 /// - [CountryPickerSheet], [CurrencyPickerSheet], [CountryListTile],
 ///   [CurrencyListTile], [CountryFlag] — the pieces, for a picker of your own
 ///   design.
@@ -61,7 +66,9 @@ export 'src/widgets/country_flag.dart';
 export 'src/widgets/country_list_tile.dart';
 export 'src/widgets/country_picker_labels.dart';
 export 'src/widgets/country_picker_sheet.dart';
+export 'src/widgets/currency_dropdown_field.dart';
 export 'src/widgets/currency_list_tile.dart';
 export 'src/widgets/currency_picker_labels.dart';
 export 'src/widgets/currency_picker_sheet.dart';
 export 'src/widgets/phone_number_field.dart';
+export 'src/widgets/searchable_dropdown_field.dart';

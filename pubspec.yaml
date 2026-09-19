@@ -1,13 +1,11 @@
 name: country_phone_kit
 description: >-
-  Country list, flags, ISO and dial codes, currencies, per-country phone
-  validation and as-you-type formatting — as plain Dart data, plus optional
-  themed phone field, country picker and currency picker.
+  Country and phone utilities for Flutter, with ISO codes, flags, validation, formatting, and ready-to-use UI
 version: 1.0.0
-homepage: https://github.com/sawongam/country_phone_kit
-repository: https://github.com/sawongam/country_phone_kit
-issue_tracker: https://github.com/sawongam/country_phone_kit/issues
-documentation: https://github.com/sawongam/country_phone_kit#readme
+homepage: https://github.com/sawongam/country-phone-kit
+repository: https://github.com/sawongam/country-phone-kit
+issue_tracker: https://github.com/sawongam/country-phone-kit/issues
+documentation: https://github.com/sawongam/country-phone-kit#readme
 
 topics:
   - country
@@ -33,12 +31,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-# Uncomment once you have run the example and captured the two shots described
-# in doc/screenshots.md. pub.dev shows these on the package page.
-# screenshots:
-#   - description: The phone field with live validation and an E.164 readout.
-#     path: doc/screenshot_field.png
-#   - description: The searchable country picker.
-#     path: doc/screenshot_picker.png
-#   - description: The currency picker, searchable by code, name or symbol.
-#     path: doc/screenshot_currency.png
+# Demo video shown on the package page.
+screenshots:
+  - description: Phone field, country picker and currency picker in action.
+    path: docs/country.gif
